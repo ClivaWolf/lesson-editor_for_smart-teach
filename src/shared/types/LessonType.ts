@@ -4,7 +4,7 @@ export type Lesson = {
     description: string,
     courseId: number,
     timeLimit: number,
-    tasks: Task[],
+    tasksId: string[],
 }
 
 export type Task = {

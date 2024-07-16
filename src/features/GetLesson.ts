@@ -10,18 +10,7 @@ export function GetLesson({lessonId}: { lessonId: string }): Promise<Lesson> {
                         description: 'Описание 1',
                         courseId: 1,
                         timeLimit: 10,
-                        tasks: [
-                            {
-                                id: '1',
-                                questions: [],
-                                public: true
-                            },
-                            {
-                                id: '2',
-                                questions: [],
-                                public: true
-                            }
-                        ]
+                        tasks: []
                     });
                 } else if (lessonId === '2') {
                     resolve({
@@ -37,6 +26,5 @@ export function GetLesson({lessonId}: { lessonId: string }): Promise<Lesson> {
                 }
             }, 1500);
         }
-    )
-        ;
+    );
 }
