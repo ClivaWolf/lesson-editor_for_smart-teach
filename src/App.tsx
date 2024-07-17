@@ -1,6 +1,8 @@
 import {Layout} from "antd";
 import {CSSProperties} from "react";
 import {LessonPage} from "./pages/course-[courseid]/lesson-[lessonid]/page";
+import {LessonProvider} from "./shared/contexts/LessonContext.tsx";
+import {BankProvider} from "./shared/contexts/BankContext.tsx";
 
 const {Header, Footer} = Layout;
 
@@ -30,11 +32,15 @@ const layoutStyle = {
 function App() {
 
     return (
-        <Layout style={layoutStyle}>
-            <Header style={headerStyle}>Header</Header>
-            <LessonPage/>
-            <Footer style={footerStyle}>Footer</Footer>
-        </Layout>
+        <BankProvider>
+            <LessonProvider>
+                <Layout style={layoutStyle}>
+                    <Header style={headerStyle}>Header</Header>
+                    <LessonPage/>
+                    <Footer style={footerStyle}>Footer</Footer>
+                </Layout>
+            </LessonProvider>
+        </BankProvider>
     )
 }
 
