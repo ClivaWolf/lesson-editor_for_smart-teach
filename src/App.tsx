@@ -3,6 +3,7 @@ import {CSSProperties} from "react";
 import {LessonPage} from "./pages/course-[courseid]/lesson-[lessonid]/page";
 import {LessonProvider} from "./shared/contexts/LessonContext.tsx";
 import {BankProvider} from "./shared/contexts/BankContext.tsx";
+import {DrawerProvider} from "./shared/contexts/TE-DrawerContext.tsx";
 
 const {Header, Footer} = Layout;
 
@@ -34,11 +35,13 @@ function App() {
     return (
         <BankProvider>
             <LessonProvider>
-                <Layout style={layoutStyle}>
-                    <Header style={headerStyle}>Header</Header>
-                    <LessonPage/>
-                    <Footer style={footerStyle}>Footer</Footer>
-                </Layout>
+                <DrawerProvider>
+                    <Layout style={layoutStyle}>
+                        <Header style={headerStyle}>Header</Header>
+                        <LessonPage/>
+                        <Footer style={footerStyle}>Footer</Footer>
+                    </Layout>
+                </DrawerProvider>
             </LessonProvider>
         </BankProvider>
     )

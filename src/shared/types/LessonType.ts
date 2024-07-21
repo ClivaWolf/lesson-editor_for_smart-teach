@@ -9,7 +9,7 @@ export type Lesson = {
 
 export type Task = {
     id: string,
-    questions: Question[],
+    content: string,
     public: boolean
 }
 
@@ -17,8 +17,13 @@ export type QuestionType = 'mono' | 'multi' | 'input' | 'sort' | 'transfer'
 
 export type Question = {
     id: string,
-    body: string,
     type: QuestionType,
-    answers: string[],
+    answers: Answer[],
     correctAnswers: string[],
+    random: boolean
+}
+
+export type Answer = {
+    title?: string,
+    dataIndex?: string
 }
