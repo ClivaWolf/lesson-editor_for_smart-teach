@@ -46,6 +46,9 @@ const ReactComponentNode = Node.create({
         return [
             {
                 tag: 'react-component',
+                getAttrs: dom => ({
+                    content: dom.getAttribute('content'),
+                }),
             },
         ];
     },

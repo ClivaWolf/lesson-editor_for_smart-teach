@@ -4,6 +4,8 @@ interface TEDrawerContextProps {
     visible: boolean;
     showDrawer: () => void;
     closeDrawer: () => void;
+    totalScores: number;
+    setTotalScores: (totalScores: number) => void;
 }
 
 // Создаем контекст
@@ -15,6 +17,7 @@ export const useDrawer = () => {
 
 export const DrawerProvider = ({ children }) => {
     const [visible, setVisible] = useState(false);
+    const [totalScores, setTotalScores] = useState(0);
 
     const showDrawer = () => {
         setVisible(true);

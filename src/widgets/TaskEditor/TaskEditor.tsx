@@ -8,24 +8,24 @@ export function TaskEditor() {
 
     return (
         <>
-        <Drawer
-            title={`Редактор задания`}
-            placement="left"
-            size={'large'}
-            onClose={closeDrawer}
-            open={visible}
-            closable={false}
-            extra={
-                <Space>
-                    <Button onClick={closeDrawer}>Отмена</Button>
-                    <Button type="primary" onClick={closeDrawer}>
-                        Сохранить
-                    </Button>
-                </Space>
-            }
-        >
-            <Tiptap/>
-        </Drawer>
+            <Drawer
+                title={`Редактор задания`}
+                placement="left"
+                size={'large'}
+                onClose={closeDrawer}
+                open={visible}
+                closable={false}
+                extra={
+                    <Space>
+                        <Button onClick={closeDrawer}>Отмена</Button>
+                        <Button type="primary" onClick={closeDrawer}>
+                            Сохранить
+                        </Button>
+                    </Space>
+                }
+            >
+                <Tiptap/>
+            </Drawer>
         </>
     );
 }

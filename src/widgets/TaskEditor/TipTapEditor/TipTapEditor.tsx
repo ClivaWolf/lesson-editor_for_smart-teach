@@ -11,11 +11,13 @@ import BubbleMenu from "./BubbleMenu.tsx";
 import styles from './Editor.module.css'
 import {QuestionProvider} from "../../../shared/contexts/QuestionContext.tsx";
 import {Question} from "../../../shared/types/LessonType.ts";
+import Preview from "./Preview.tsx";
 
 const Tiptap = () => {
 
     // const {setCalculateScore} = useQuestion()
     const [totalScores, setTotalScores] = useState(0)
+    const [content, setContent] = useState('');
 
     const editor = useEditor({
         autofocus: true,
@@ -55,17 +57,17 @@ const Tiptap = () => {
                 }'/>`,
     })
 
-    const calculateTotalScores = () => {
-        const nodes = editor.getJSON().content || [];
-        let total = 0;
-        nodes.forEach(node => {
-            if (node.type === 'reactComponent') {
-                const attrs = (node.attrs as {content: Question}).content;
-                total += attrs.cost;
-            }
-        });
-        setTotalScores(total);
-    };
+    // const calculateTotalScores = () => {
+    //     const nodes = editor.getJSON().content || [];
+    //     let total = 0;
+    //     nodes.forEach(node => {
+    //         if (node.type === 'reactComponent') {
+    //             const attrs = (node.attrs as { content: Question }).content;
+    //             total += attrs.cost;
+    //         }
+    //     });
+    //     setTotalScores(total);
+    // };
 
     if (!editor) {
         return null
@@ -78,6 +80,8 @@ const Tiptap = () => {
                 <ToolBox editor={editor}/>
                 <BubbleMenu editor={editor}/>
                 <EditorContent editor={editor}/>
+                <Preview content={editor.getJSON()}/>
+                <div>{content}</div>
             </QuestionProvider>
         </>
     )

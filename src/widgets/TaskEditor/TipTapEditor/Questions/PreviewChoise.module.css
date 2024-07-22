@@ -1,0 +1,15 @@
+.groupDisabled {
+    opacity: 1 !important;
+    cursor: default !important;
+}
+
+.checkboxGroup {
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.wrapperDisabled span {
+    opacity: 1 !important; /* Отменить изменение прозрачности */
+    color: #000 !important; /* Отменить изменение цвета текста */
+    cursor: default !important; /* Курсор по умолчанию */
+}

@@ -4,6 +4,7 @@ import {Filter} from "./components/Filter/Filter.tsx";
 import {Task} from "../../shared/types/LessonType.ts";
 import {TaskEditor} from "../TaskEditor/TaskEditor.tsx";
 import {useDrawer} from "../../shared/contexts/TE-DrawerContext.tsx";
+import {Question} from "./components/Question/Question.tsx";
 
 const {Title} = Typography;
 
@@ -24,9 +25,7 @@ export function Bank() {
                 dataSource={Bank}
                 renderItem={(item: Task) =>
                     <List.Item>
-                        <ul>
-                            {item.questions.map((question) => <li>{question.body}</li>)}
-                        </ul>
+                        <Question task={item}/>
                     </List.Item>
                 }
             />

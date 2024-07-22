@@ -10,6 +10,8 @@ export type Lesson = {
 export type Task = {
     id: string,
     content: string,
+    scores: number,
+    knowledge: string[],
     public: boolean
 }
 
