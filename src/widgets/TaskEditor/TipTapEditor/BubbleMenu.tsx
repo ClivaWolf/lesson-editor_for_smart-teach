@@ -4,6 +4,10 @@ import {BoldOutlined, ItalicOutlined} from "@ant-design/icons";
 
 export default ({editor}: { editor: EditorContentProps['editor'] }) => {
 
+    if (!editor) {
+        return null
+    }
+
     const dropdownMenuItems: ActionIconGroupItemType[] = [
         {
             icon: <BoldOutlined/>,
@@ -23,7 +27,7 @@ export default ({editor}: { editor: EditorContentProps['editor'] }) => {
     return (
         <>
             {editor && <BubbleMenu className="bubble-menu" tippyOptions={{duration: 100}} editor={editor}>
-                <ActionGroup items={dropdownMenuItems} />
+                <ActionGroup items={dropdownMenuItems}/>
             </BubbleMenu>}
         </>
     )

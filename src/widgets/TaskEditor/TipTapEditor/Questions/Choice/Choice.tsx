@@ -1,27 +1,38 @@
 import {Answer, Question} from "../../../../../shared/types/LessonType.ts";
 import {ItemRender, randomIndex} from "./_ItemRender";
-import {Button, Flex, Radio, Typography, Space, Input} from "antd";
+import {Button, Flex, Radio, Typography, Space, Input, Divider} from "antd";
 import {SortableList, SortableListProvider, useSortableList} from "@ant-design/pro-editor";
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
+import {QuestionForm} from "../QuestionForm.tsx";
+import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
 
-export function MonoQuestion({question}: { question: Question }) {
+export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean }) {
+    const {question} = useQuestion();
+    console.log(question);
     const [list, setList] = useState<Question['answers']>(question.answers);
     const [correctAnswer, setCorrectAnswer] = useState(question.correctAnswers[0]);
 
     return (
         <SortableListProvider>
-            <Flex gap={12} vertical style={{width: 'fit-content'}}>
-                <Typography.Text strong>Выберите один правильный ответ:</Typography.Text>
-                <Radio.Group value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)}>
-                    <SortableList<Question>
-                        list={list}
-                        initialValues={question.answers}
-                        onChange={(data) => setList(data as Question['answers'])}
-                        renderContent={(item, index) => <ItemRender item={item as Answer} index={index}/>}
-                    />
-                </Radio.Group>
-                <Extra/>
+            <Flex justify={'space-between'} gap={16}>
+                <Flex gap={12} vertical>
+                    <Radio.Group value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)}>
+                        <SortableList<Question>
+                            list={list}
+                            initialValues={question.answers}
+                            onChange={(data) => setList(data as Question['answers'])}
+                            renderContent={(item, index) => <ItemRender item={item as Answer} index={index}/>}
+                            renderEmpty={() => <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>Добавьте
+                                варианты ответа!</Typography.Text>}
+                        />
+                    </Radio.Group>
+                    <Extra/>
+                </Flex>
+                {isActive && <>
+                    <Divider type={'vertical'} style={{height: '100%'}}/>
+                    <QuestionForm updateAttributes={updateAttributes}/>
+                </>}
             </Flex>
         </SortableListProvider>
     )

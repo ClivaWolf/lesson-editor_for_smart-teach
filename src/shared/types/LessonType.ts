@@ -20,7 +20,10 @@ export type Question = {
     type: QuestionType,
     answers: Answer[],
     correctAnswers: string[],
-    random: boolean
+    knowledge: string[],
+    cost: number,
+    random: boolean,
+    incomplete_score?: boolean
 }
 
 export type Answer = {
