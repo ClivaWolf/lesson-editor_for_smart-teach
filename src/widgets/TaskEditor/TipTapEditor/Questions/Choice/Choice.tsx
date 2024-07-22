@@ -6,6 +6,7 @@ import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import {QuestionForm} from "../QuestionForm.tsx";
 import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
+import {Welcome} from "./Welcome.tsx";
 
 export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean }) {
     const {question} = useQuestion();
@@ -17,14 +18,18 @@ export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean
         <SortableListProvider>
             <Flex justify={'space-between'} gap={16}>
                 <Flex gap={12} vertical>
+                    <Welcome/>
                     <Radio.Group value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)}>
                         <SortableList<Question>
                             list={list}
                             initialValues={question.answers}
                             onChange={(data) => setList(data as Question['answers'])}
                             renderContent={(item, index) => <ItemRender item={item as Answer} index={index}/>}
-                            renderEmpty={() => <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>Добавьте
-                                варианты ответа!</Typography.Text>}
+                            renderEmpty={() =>
+                                <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>
+                                    Добавьте варианты ответа!
+                                </Typography.Text>
+                            }
                         />
                     </Radio.Group>
                     <Extra/>

@@ -24,6 +24,7 @@ export type Question = {
     cost: number,
     random: boolean,
     incomplete_score?: boolean
+    welcome_text?: string
 }
 
 export type Answer = {

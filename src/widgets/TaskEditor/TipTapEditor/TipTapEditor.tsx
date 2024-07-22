@@ -34,6 +34,7 @@ const Tiptap = () => {
                     "id": "too_long_id",
                     "type": "mono",
                     "cost": 1,
+                    "welcome_text": "Выберите один из вариантов ответа:",
                     "knowledge": ["математика"],
                     "answers": [
                     {
