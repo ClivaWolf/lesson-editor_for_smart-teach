@@ -1,6 +1,6 @@
 import {NodeConfig, NodeViewWrapper, ReactNodeViewRenderer} from '@tiptap/react';
 import {Node} from '@tiptap/core';
-import {PreviewChoice} from "./Questions/PreviewChoice.tsx";
+import {PreviewChoice} from "./Choice/PreviewChoice.tsx";
 
 const ReactComponentNode = Node.create({
     name: 'reactComponent',

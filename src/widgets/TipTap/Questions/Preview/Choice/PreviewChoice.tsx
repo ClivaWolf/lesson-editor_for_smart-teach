@@ -1,8 +1,6 @@
-import {Question} from "../../../../shared/types/LessonType.ts";
+import {Question} from "../../../../../shared/types/LessonType.ts";
 import {Flex, Typography, Radio, Checkbox} from "antd";
 import styles from "./PreviewChoise.module.css";
-
-console.log(styles.groupDisabled)
 
 export function PreviewChoice({question}: { question: Question }) {
     return (

@@ -1,6 +1,6 @@
 import {Button, Drawer, Space} from "antd";
 import {useDrawer} from "../../shared/contexts/TE-DrawerContext";
-import Tiptap from "./TipTapEditor/TipTapEditor.tsx";
+import Tiptap from "./Editor/Editor.tsx";
 
 export function TaskEditor() {
 

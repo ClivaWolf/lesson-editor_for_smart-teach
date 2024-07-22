@@ -1,7 +1,7 @@
 import {memo, useState} from "react";
 import {useSortableList, Input, Checkbox} from "@ant-design/pro-editor";
 import {Radio} from "antd";
-import {Answer} from "../../../../../shared/types/LessonType";
+import {Answer} from "../../../../../shared/types/LessonType.ts";
 
 export const randomIndex = () => Math.random() * 10000;
 

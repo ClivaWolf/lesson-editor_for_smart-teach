@@ -1,11 +1,11 @@
 import {NodeConfig, NodeViewWrapper} from '@tiptap/react';
-import {Question} from '../../../shared/types/LessonType';
-import {ChoiceQuestion} from './Questions/Choice/Choice';
+import {Question} from '../../../../shared/types/LessonType.ts';
+import {ChoiceQuestion} from './Choice/Choice.tsx';
 import {Node} from '@tiptap/core';
 import {ReactNodeViewRenderer} from '@tiptap/react';
 import {useEffect, useState} from 'react';
-import {useQuestion} from '../../../shared/contexts/QuestionContext.tsx';
-import styles from './Questions/Question.module.css';
+import {useQuestion} from '../../../../shared/contexts/QuestionContext.tsx';
+import styles from './Choice/Question.module.css';
 
 interface ReactComponentViewProps {
     node: {

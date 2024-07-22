@@ -1,10 +1,10 @@
 import {Answer, Question} from "../../../../../shared/types/LessonType.ts";
-import {ItemRender, randomIndex} from "./_ItemRender";
+import {ItemRender, randomIndex} from "./_ItemRender.tsx";
 import {Button, Flex, Radio, Typography, Space, Input, Divider} from "antd";
 import {Checkbox, SortableList, SortableListProvider, useSortableList} from "@ant-design/pro-editor";
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
-import {QuestionForm} from "../QuestionForm.tsx";
+import {ChoiceForm} from "./ChoiceForm.tsx";
 import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
 import {Welcome} from "./Welcome.tsx";
 
@@ -70,7 +70,7 @@ export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean
                             <Radio.Button value={'mono'}>Один вариант</Radio.Button>
                             <Radio.Button value={'multi'}>Несколько вариантов</Radio.Button>
                         </Radio.Group>
-                        <QuestionForm updateAttributes={updateAttributes}/>
+                        <ChoiceForm updateAttributes={updateAttributes}/>
                     </Flex>
                 </>}
             </Flex>

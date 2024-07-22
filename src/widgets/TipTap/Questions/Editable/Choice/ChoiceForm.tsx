@@ -1,9 +1,9 @@
 import {Button, Form, Switch} from "antd";
 import {Cascader, InputNumber} from "@ant-design/pro-editor";
-import {useQuestion} from "../../../../shared/contexts/QuestionContext.tsx";
-import {Question} from "../../../../shared/types/LessonType.ts";
+import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
+import {Question} from "../../../../../shared/types/LessonType.ts";
 
-export function QuestionForm({updateAttributes}) {
+export function ChoiceForm({updateAttributes}) {
 
     const {question} = useQuestion();
 

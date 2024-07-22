@@ -4,7 +4,7 @@ import {Filter} from "./components/Filter/Filter.tsx";
 import {Task} from "../../shared/types/LessonType.ts";
 import {TaskEditor} from "../TaskEditor/TaskEditor.tsx";
 import {useDrawer} from "../../shared/contexts/TE-DrawerContext.tsx";
-import {Question} from "./components/Question/Question.tsx";
+import {BankQuestion} from "./components/Question/BankQuestion.tsx";
 
 const {Title} = Typography;
 
@@ -25,7 +25,7 @@ export function Bank() {
                 dataSource={Bank}
                 renderItem={(item: Task) =>
                     <List.Item>
-                        <Question task={item}/>
+                        <BankQuestion task={item}/>
                     </List.Item>
                 }
             />
