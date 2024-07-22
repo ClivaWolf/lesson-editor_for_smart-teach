@@ -87,7 +87,7 @@ const ReactComponent = ({node, updateAttributes}: ReactComponentViewProps) => {
                 className={`${styles.question} ${isActive ? styles.active : ''}`}
                 onClick={handleFocus}
                 onFocus={handleFocus}
-                onBlur={handleBlur}
+                // onBlur={handleBlur}
             >
                 {(question.type === 'mono' || question.type === 'multi') && (
                     <ChoiceQuestion isActive={isActive} updateAttributes={updateAttributes}/>

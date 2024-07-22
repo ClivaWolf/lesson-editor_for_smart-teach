@@ -1,7 +1,7 @@
 import {Answer, Question} from "../../../../../shared/types/LessonType.ts";
 import {ItemRender, randomIndex} from "./_ItemRender";
 import {Button, Flex, Radio, Typography, Space, Input, Divider} from "antd";
-import {SortableList, SortableListProvider, useSortableList} from "@ant-design/pro-editor";
+import {Checkbox, SortableList, SortableListProvider, useSortableList} from "@ant-design/pro-editor";
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import {QuestionForm} from "../QuestionForm.tsx";
@@ -10,33 +10,68 @@ import {Welcome} from "./Welcome.tsx";
 
 export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean }) {
     const {question} = useQuestion();
-    console.log(question);
     const [list, setList] = useState<Question['answers']>(question.answers);
-    const [correctAnswer, setCorrectAnswer] = useState(question.correctAnswers[0]);
+    const [correctAnswers, setCorrectAnswers] = useState(question.correctAnswers);
+    const [questionType, setQuestionType] = useState(question.type);
+    const [welcomeText, setWelcomeText] = useState(question.welcome_text ||
+        (question.type === "mono" ? "Выберите один вариант" : "Выберите несколько вариантов")
+    );
+
+    const List = () => {
+        return (
+            <SortableListProvider>
+                <SortableList<Question>
+                    list={list}
+                    initialValues={question.answers}
+                    onChange={(data) => setList(data as Question['answers'])}
+                    renderContent={(item, index) =>
+                        <ItemRender type={question.type as ("mono" | "multi")} item={item as Answer} index={index}/>
+                    }
+                    renderEmpty={() =>
+                        <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>
+                            Добавьте варианты ответа!
+                        </Typography.Text>
+                    }
+                />
+            </SortableListProvider>
+        )
+    }
 
     return (
         <SortableListProvider>
             <Flex justify={'space-between'} gap={16}>
                 <Flex gap={12} vertical>
-                    <Welcome/>
-                    <Radio.Group value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)}>
-                        <SortableList<Question>
-                            list={list}
-                            initialValues={question.answers}
-                            onChange={(data) => setList(data as Question['answers'])}
-                            renderContent={(item, index) => <ItemRender item={item as Answer} index={index}/>}
-                            renderEmpty={() =>
-                                <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>
-                                    Добавьте варианты ответа!
-                                </Typography.Text>
-                            }
-                        />
-                    </Radio.Group>
+                    <Welcome welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>
+                    {question.type === "mono" ? (
+                        <Radio.Group value={correctAnswers[0]} onChange={(e) => setCorrectAnswers(e.target.value)}>
+                            <List/>
+                        </Radio.Group>
+                    ) : (
+                        <Checkbox.Group value={correctAnswers}
+                                        onChange={(e) => setCorrectAnswers(e.map(value => String(value)))}>
+                            <List/>
+                        </Checkbox.Group>
+                    )}
                     <Extra/>
                 </Flex>
                 {isActive && <>
                     <Divider type={'vertical'} style={{height: '100%'}}/>
-                    <QuestionForm updateAttributes={updateAttributes}/>
+                    <Flex gap={8} vertical>
+                        <Radio.Group
+                            size={"small"} buttonStyle={'solid'}
+                            value={questionType} onChange={(e) => {
+                                setQuestionType(e.target.value)
+                                question.type = e.target.value
+                                const newWelcomeText = e.target.value === "mono" ? "Выберите один вариант:" : "Выберите несколько вариантов:";
+                                question.welcome_text = newWelcomeText;
+                                setWelcomeText(newWelcomeText);
+                            }}
+                        >
+                            <Radio.Button value={'mono'}>Один вариант</Radio.Button>
+                            <Radio.Button value={'multi'}>Несколько вариантов</Radio.Button>
+                        </Radio.Group>
+                        <QuestionForm updateAttributes={updateAttributes}/>
+                    </Flex>
                 </>}
             </Flex>
         </SortableListProvider>

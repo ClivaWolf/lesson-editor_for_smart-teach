@@ -1,11 +1,11 @@
 import {memo, useState} from "react";
-import {useSortableList, Input} from "@ant-design/pro-editor";
+import {useSortableList, Input, Checkbox} from "@ant-design/pro-editor";
 import {Radio} from "antd";
 import {Answer} from "../../../../../shared/types/LessonType";
 
 export const randomIndex = () => Math.random() * 10000;
 
-export const ItemRender = memo(({item, index}: { item: Answer; index: number }) => {
+export const ItemRender = memo(({type, item, index}: {type: 'mono' | 'multi'; item: Answer; index: number }) => {
     const instance = useSortableList();
     const [title, setTitle] = useState(item?.title);
     const [changed, setChanged] = useState(false);
@@ -27,24 +27,30 @@ export const ItemRender = memo(({item, index}: { item: Answer; index: number }) 
         }, 0);
     };
 
+    const Body = () => (
+        <Input
+            id={`index-${index}`}
+            value={title}
+            placeholder="Вариант ответа..."
+            onBlur={() => {
+                if (changed) updateTitle();
+            }}
+            onChange={(value) => {
+                setTitle(value);
+                setChanged(true);
+            }}
+            onPressEnter={() => {
+                if (changed) updateTitle();
+                handleNextFocus();
+            }}
+        />
+    );
+
     return (
-        <Radio value={item?.dataIndex}>
-            <Input
-                id={`index-${index}`}
-                value={title}
-                placeholder="Вариант ответа..."
-                onBlur={() => {
-                    if (changed) updateTitle();
-                }}
-                onChange={(value) => {
-                    setTitle(value);
-                    setChanged(true);
-                }}
-                onPressEnter={() => {
-                    if (changed) updateTitle();
-                    handleNextFocus();
-                }}
-            />
-        </Radio>
+        (type === 'mono' ? (
+            <Radio value={item?.dataIndex}>{Body()}</Radio>
+        ) : (
+            <Checkbox value={item?.dataIndex}>{Body()}</Checkbox>
+        ))
     );
 });
