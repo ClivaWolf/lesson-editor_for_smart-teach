@@ -29,11 +29,6 @@ export function ChoiceQuestion({question, updateAttributes}: ChoiceQuestionProps
                     renderContent={(item, index) =>
                         <ItemRender type={question.type as ("mono" | "multi")} item={item as Answer} index={index}/>
                     }
-                    renderEmpty={() =>
-                        <Typography.Text type={'secondary'} style={{paddingLeft: '2rem'}}>
-                            Добавьте варианты ответа!
-                        </Typography.Text>
-                    }
                 />
                 <Extra/>
             </SortableListProvider>

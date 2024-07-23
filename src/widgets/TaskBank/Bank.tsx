@@ -33,7 +33,7 @@ export function Bank() {
                         <BankQuestion task={item}/>
                         <Divider type={'vertical'} style={{height: 'max-content'}}/>
                         <Flex align={'flex-start'} gap={8} vertical>
-                            <Checkbox value={item.public}>Публичный</Checkbox>
+                            <Checkbox checked={item.public}>Публичный</Checkbox>
                             <Button type={'primary'} onClick={() => showDrawer(item.content)}>Редактировать</Button>
                             <Button type={'primary'} danger onClick={() => handleDelete(item.id)}>Удалить</Button>
                         </Flex>
