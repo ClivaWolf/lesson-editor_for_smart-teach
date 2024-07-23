@@ -9,15 +9,11 @@ export function LessonPage() {
     return (
         <Layout hasSider>
             <Content>
-                <Row>
-                    <Col span={12}>
-                        <LessonManager/>
-                    </Col>
-                    <Col span={12}>
-                        <Bank/>
-                    </Col>
-                </Row>
+                <Bank/>
             </Content>
+            <Sider width={300}>
+                <LessonManager/>
+            </Sider>
         </Layout>
     )
 }

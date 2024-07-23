@@ -16,7 +16,7 @@ export function LessonManager() {
     useEffect(() => {
         if (!loading && lesson)
             setCurrentLesson(lesson);
-    }, [loading]);
+    }, [lesson, loading]);
 
     if (loading)
         return (
@@ -38,7 +38,6 @@ export function LessonManager() {
                         <BankQuestion task={getById(id)}/>
                     </List.Item>
                 }
-                renderEmpty={() => <Typography.Text type={'secondary'}>Нет заданий</Typography.Text>}
             />
         </Flex>
     )

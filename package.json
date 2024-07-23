@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ant-design/pro-components": "^2.7.14",
     "@ant-design/pro-editor": "^1.2.1",
     "@ant-design/pro-skeleton": "^2.1.13",
     "@react-buddy/ide-toolbox": "^2.4.0",
