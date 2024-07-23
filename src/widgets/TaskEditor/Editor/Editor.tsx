@@ -1,18 +1,16 @@
-// noinspection TypeScriptValidateTypes
-
-import {useState} from "react";
-import {EditorContent} from '@tiptap/react'
+import {useState, useEffect} from "react";
+import {Editor, EditorContent, JSONContent} from '@tiptap/react'
 import {ToolBox} from "../../TipTap/Menus/ToolBox.tsx";
 import 'katex/dist/katex.min.css'
 import BubbleMenu from "../../TipTap/Menus/BubbleMenu.tsx";
-import {QuestionProvider} from "../../../shared/contexts/QuestionContext.tsx";
 import Editors from "../../TipTap/Editors.tsx";
+import {useDrawer} from "../../../shared/contexts/TE-DrawerContext.tsx";
 
 const Tiptap = () => {
 
-    // const {setCalculateScore} = useQuestion()
-    const [totalScores, setTotalScores] = useState(0)
-    const [content, setContent] = useState('');
+    // const [totalScores, setTotalScores] = useState(0)
+    const {content} = useDrawer()
+    // const [editorContent, setEditorContent] = useState<JSONContent>(content ? JSON.parse(content) : null)
 
     // const calculateTotalScores = () => {
     //     const nodes = editors.getJSON().content || [];
@@ -28,16 +26,34 @@ const Tiptap = () => {
 
     const editor = Editors('editor')
 
+    if (!editor)
+        return null
+
+    useEffect(() => {
+        if (editor && editor.commands && content) {
+            editor.commands.setContent(JSON.parse(content));
+        }
+    }, [editor, content]);
+
     return (
         <>
-            <QuestionProvider>
-                <div>Total scores: {totalScores}</div>
-                <ToolBox editor={editor}/>
-                <BubbleMenu editor={editor}/>
-                <EditorContent editor={editor}/>
-                {/*<button onClick={() => {setContent(editor?.getJSON())}}>Submit</button>*/}
-                <div>{editor?.getJSON()}</div>
-            </QuestionProvider>
+            {/*<div>Total scores: {totalScores}</div>*/}
+            <ToolBox editor={editor}/>
+            <BubbleMenu editor={editor}/>
+            <EditorContent editor={editor}/>
+            {/*<button onClick={() => {*/}
+            {/*    if (editor instanceof Editor) {*/}
+            {/*        setEditorContent(editor.getJSON())*/}
+            {/*        console.log(editor.getHTML())*/}
+            {/*    }*/}
+            {/*}}>*/}
+            {/*    Submit*/}
+            {/*</button>*/}
+            <button onClick={() => {
+                editor?.commands.setContent(JSON.parse(content))
+                console.log(content)
+            }}>Обновить</button>
+            {/*<div>{editorContent.text}</div>*/}
         </>
     )
 }

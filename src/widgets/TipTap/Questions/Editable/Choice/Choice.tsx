@@ -5,14 +5,16 @@ import {Checkbox, SortableList, SortableListProvider, useSortableList} from "@an
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import {ChoiceForm} from "./ChoiceForm.tsx";
-import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
 import {Welcome} from "./Welcome.tsx";
 
-export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean }) {
-    const {question} = useQuestion();
+interface ChoiceQuestionProps {
+    question: Question
+    updateAttributes: (attrs: Partial<Question>) => void
+}
+
+export function ChoiceQuestion({question, updateAttributes}: ChoiceQuestionProps) {
     const [list, setList] = useState<Question['answers']>(question.answers);
     const [correctAnswers, setCorrectAnswers] = useState(question.correctAnswers);
-    const [questionType, setQuestionType] = useState(question.type);
     const [welcomeText, setWelcomeText] = useState(question.welcome_text ||
         (question.type === "mono" ? "Выберите один вариант" : "Выберите несколько вариантов")
     );
@@ -33,48 +35,31 @@ export function ChoiceQuestion({isActive, updateAttributes}: { isActive: boolean
                         </Typography.Text>
                     }
                 />
+                <Extra/>
             </SortableListProvider>
         )
     }
 
     return (
-        <SortableListProvider>
-            <Flex justify={'space-between'} gap={16}>
-                <Flex gap={12} vertical>
-                    <Welcome welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>
-                    {question.type === "mono" ? (
-                        <Radio.Group value={correctAnswers[0]} onChange={(e) => setCorrectAnswers(e.target.value)}>
-                            <List/>
-                        </Radio.Group>
-                    ) : (
-                        <Checkbox.Group value={correctAnswers}
-                                        onChange={(e) => setCorrectAnswers(e.map(value => String(value)))}>
-                            <List/>
-                        </Checkbox.Group>
-                    )}
-                    <Extra/>
-                </Flex>
-                {isActive && <>
-                    <Divider type={'vertical'} style={{height: '100%'}}/>
-                    <Flex gap={8} vertical>
-                        <Radio.Group
-                            size={"small"} buttonStyle={'solid'}
-                            value={questionType} onChange={(e) => {
-                                setQuestionType(e.target.value)
-                                question.type = e.target.value
-                                const newWelcomeText = e.target.value === "mono" ? "Выберите один вариант:" : "Выберите несколько вариантов:";
-                                question.welcome_text = newWelcomeText;
-                                setWelcomeText(newWelcomeText);
-                            }}
-                        >
-                            <Radio.Button value={'mono'}>Один вариант</Radio.Button>
-                            <Radio.Button value={'multi'}>Несколько вариантов</Radio.Button>
-                        </Radio.Group>
-                        <ChoiceForm updateAttributes={updateAttributes}/>
-                    </Flex>
-                </>}
+        <Flex justify={'space-between'} gap={16}>
+            <Flex gap={12} vertical>
+                {/*<Welcome question={question} welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>*/}
+                <Input.TextArea placeholder="Выбырите варианты ответа:" autoSize variant={'borderless'}
+                                value={question.welcome_text} onChange={(e) => setWelcomeText(e.target.value)}/>
+                {question.type === "mono" ? (
+                    <Radio.Group value={correctAnswers[0]} onChange={(e) => setCorrectAnswers(e.target.value)}>
+                        <List/>
+                    </Radio.Group>
+                ) : (
+                    <Checkbox.Group value={correctAnswers}
+                                    onChange={(e) => setCorrectAnswers(e.map(value => String(value)))}>
+                        <List/>
+                    </Checkbox.Group>
+                )}
             </Flex>
-        </SortableListProvider>
+            <Divider type={'vertical'} style={{height: '100%'}}/>
+            <ChoiceForm question={question} updateAttributes={updateAttributes} setWelcomeText={setWelcomeText}/>
+        </Flex>
     )
 }
 

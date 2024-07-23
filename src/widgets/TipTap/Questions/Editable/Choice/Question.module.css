@@ -17,3 +17,7 @@
     border: rgba(128, 0, 128, 0.7) 2px solid;
     background: rgba(128, 0, 128, 0.07);
 }
+
+.ant-form-item {
+    margin-bottom: 1rem!important;
+}

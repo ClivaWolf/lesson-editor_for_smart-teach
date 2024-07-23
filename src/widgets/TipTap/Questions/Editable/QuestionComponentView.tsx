@@ -1,11 +1,12 @@
-import {NodeConfig, NodeViewWrapper} from '@tiptap/react';
+import {NodeConfig, NodeViewWrapper, ReactNodeViewRenderer} from '@tiptap/react';
 import {Question} from '../../../../shared/types/LessonType.ts';
 import {ChoiceQuestion} from './Choice/Choice.tsx';
 import {Node} from '@tiptap/core';
-import {ReactNodeViewRenderer} from '@tiptap/react';
-import {useEffect, useState} from 'react';
-import {useQuestion} from '../../../../shared/contexts/QuestionContext.tsx';
+import {useState} from 'react';
 import styles from './Choice/Question.module.css';
+import {Button, Space} from "antd";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {PreviewChoice} from "../Preview/Choice/PreviewChoice.tsx";
 
 interface ReactComponentViewProps {
     node: {
@@ -63,37 +64,39 @@ const ReactComponentNode = Node.create({
 } as Partial<NodeConfig>);
 
 const ReactComponent = ({node, updateAttributes}: ReactComponentViewProps) => {
-    const {setQuestion, question} = useQuestion();
-    const [isActive, setIsActive] = useState(false);
-
-    useEffect(() => {
-        if (node.attrs.content) {
-            setQuestion(node.attrs.content);
-        }
-    }, [node.attrs.content, setQuestion]);
-
-    const handleFocus = () => {
-        setIsActive(true);
-    };
-
-    const handleBlur = () => {
-        setIsActive(false);
-    };
+    const question = node.attrs.content;
+    const [isHover, setIsHover] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     if (!question) {
         return null;
     }
 
+    const Toolbox = () => {
+        return (
+            <Space.Compact>
+                <Button type={'text'} icon={<EditOutlined/>} onClick={() => setIsEditing(true)}/>
+                <Button type={'text'} icon={<DeleteOutlined/>} onClick={() => setIsEditing(false)}/>
+            </Space.Compact>
+        )
+    }
+
     return (
         <NodeViewWrapper className="react-component">
             <div
-                className={`${styles.question} ${isActive ? styles.active : ''}`}
-                onClick={handleFocus}
-                onFocus={handleFocus}
-                // onBlur={handleBlur}
+                className={`${styles.question} ${isHover ? styles.active : ''}`}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
             >
-                {(question.type === 'mono' || question.type === 'multi') && (
-                    <ChoiceQuestion isActive={isActive} updateAttributes={updateAttributes}/>
+                {isHover && !isEditing && <Toolbox/>}
+                {isEditing ? (
+                    (question.type === 'mono' || question.type === 'multi') && (
+                        <ChoiceQuestion question={question} updateAttributes={updateAttributes}/>
+                    )
+                ) : (
+                    (question.type === 'mono' || question.type === 'multi') && (
+                        <PreviewChoice question={question}/>
+                    )
                 )}
             </div>
         </NodeViewWrapper>

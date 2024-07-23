@@ -2,9 +2,15 @@ import {useState} from "react";
 import {Button, Input, Typography, Flex} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {useQuestion} from "../../../../../shared/contexts/QuestionContext.tsx";
+import {Question} from "../../../../../shared/types/LessonType.ts";
 
-export function Welcome({welcomeText, setWelcomeText}: { welcomeText: string, setWelcomeText: (text: string) => void }) {
-    const {question} = useQuestion();
+interface WelcomeProps {
+    question: Question
+    welcomeText: string
+    setWelcomeText: (text: string) => void
+}
+
+export function Welcome({question, welcomeText, setWelcomeText}: WelcomeProps) {
     const [edited, setEdited] = useState(false);
 
     return (
