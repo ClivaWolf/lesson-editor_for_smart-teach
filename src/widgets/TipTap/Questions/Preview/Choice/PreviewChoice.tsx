@@ -1,7 +1,9 @@
 import {Question} from "../../../../../shared/types/LessonType.ts";
-import {Flex, Typography, Radio, Checkbox, Badge, Col, Row} from "antd";
+import {Flex, Typography, Radio, Checkbox, Badge, Col, Row, Cascader, Tag} from "antd";
 import {FaRandom} from "react-icons/fa";
 import styles from "./PreviewChoise.module.css";
+import {EditOutlined} from "@ant-design/icons";
+import {PreviewKnowledge} from "../../../../KnowledgeSelector/Preview/PreviewKnowledge.tsx";
 
 export function PreviewChoice({question}: { question: Question }) {
     return (
@@ -38,6 +40,11 @@ export function PreviewChoice({question}: { question: Question }) {
                             ))}
                         </Checkbox.Group>
                     )}
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <PreviewKnowledge knowledge={question.knowledge}/>
                 </Col>
             </Row>
         </Flex>
