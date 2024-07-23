@@ -10,6 +10,8 @@ export type Lesson = {
 export type Task = {
     id: string,
     content: string,
+    scores: number,
+    knowledge: string[],
     public: boolean
 }
 
@@ -20,7 +22,11 @@ export type Question = {
     type: QuestionType,
     answers: Answer[],
     correctAnswers: string[],
-    random: boolean
+    knowledge: string[],
+    cost: number,
+    random: boolean,
+    incomplete_score?: boolean
+    welcome_text?: string
 }
 
 export type Answer = {

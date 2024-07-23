@@ -3,11 +3,11 @@ This directory contains utility files which enable some visual features of the
 Files in the directory should be committed to source control.
 
 React Buddy palettes describe reusable components and building blocks. `React Palette` tool window becomes available
-when an editor with React components is active. You can drag and drop items from the tool window to the code editor or
+when an editors with React components is active. You can drag and drop items from the tool window to the code editors or
 JSX Outline. Alternatively, you can insert components from the palette using code generation
 action (`alt+insert` / `⌘ N`).
 
-Add components to the palette using `Add to React Palette` intention or via palette editor (look for the corresponding
+Add components to the palette using `Add to React Palette` intention or via palette editors (look for the corresponding
 link in `palette.tsx`). There are some ready-to-use palettes for popular React libraries which are published as npm
 packages and can be added as a dependency:
 

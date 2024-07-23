@@ -1,4 +1,5 @@
-import {Layout} from "antd";
+import {Layout, ConfigProvider} from "antd";
+import ruRU from 'antd/lib/locale/ru_RU';
 import {CSSProperties} from "react";
 import {LessonPage} from "./pages/course-[courseid]/lesson-[lessonid]/page";
 import {LessonProvider} from "./shared/contexts/LessonContext.tsx";
@@ -33,17 +34,19 @@ const layoutStyle = {
 function App() {
 
     return (
-        <BankProvider>
-            <LessonProvider>
-                <DrawerProvider>
-                    <Layout style={layoutStyle}>
-                        <Header style={headerStyle}>Header</Header>
-                        <LessonPage/>
-                        <Footer style={footerStyle}>Footer</Footer>
-                    </Layout>
-                </DrawerProvider>
-            </LessonProvider>
-        </BankProvider>
+        <ConfigProvider locale={ruRU}>
+            <BankProvider>
+                <LessonProvider>
+                    <DrawerProvider>
+                        <Layout style={layoutStyle}>
+                            <Header style={headerStyle}>Header</Header>
+                            <LessonPage/>
+                            <Footer style={footerStyle}>Footer</Footer>
+                        </Layout>
+                    </DrawerProvider>
+                </LessonProvider>
+            </BankProvider>
+        </ConfigProvider>
     )
 }
 
