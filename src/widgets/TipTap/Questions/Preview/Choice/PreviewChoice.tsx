@@ -1,11 +1,23 @@
-import {Question} from "../../../../../shared/types/LessonType.ts";
-import {Flex, Typography, Radio, Checkbox, Badge, Col, Row, Cascader, Tag} from "antd";
+import {useState} from "react";
+import {Answer, Question} from "../../../../../shared/types/LessonType.ts";
+import {Badge, Checkbox, Col, Flex, Radio, Row, Typography, Tooltip} from "antd";
 import {FaRandom} from "react-icons/fa";
 import styles from "./PreviewChoise.module.css";
-import {EditOutlined} from "@ant-design/icons";
 import {PreviewKnowledge} from "../../../../KnowledgeSelector/Preview/PreviewKnowledge.tsx";
 
 export function PreviewChoice({question}: { question: Question }) {
+
+    const shuffleArray = (array: Answer[]) => {
+        return array.sort(() => Math.random() - 0.5);
+    };
+
+    const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>(shuffleArray([...question.answers]));
+
+
+    const shuffleAnswers = () => {
+        setShuffledAnswers(shuffleArray([...question.answers]));
+    };
+
     return (
         <Flex gap={8} vertical>
             <Row gutter={[8, 8]} align={'middle'}>
@@ -17,13 +29,17 @@ export function PreviewChoice({question}: { question: Question }) {
                 </Col>
             </Row>
             <Row gutter={[8, 8]}>
-                <Col>{question.random && <FaRandom className={styles.randomIcon}/>}</Col>
+                <Col>
+                    <Tooltip title={'Случайный порядок вариантов'}>
+                        {question.random && <FaRandom className={styles.randomIcon} onClick={() => shuffleAnswers()}/>}
+                    </Tooltip>
+                </Col>
                 <Col>
                     {question.type === 'mono' ? (
                         <Radio.Group className={styles.groupDisabled} defaultValue={question.correctAnswers[0]}
                                      disabled>
                             <Flex gap={8} vertical>
-                                {question.answers.map((answer, index) => (
+                                {shuffledAnswers.map((answer, index) => (
                                     <Radio className={styles.wrapperDisabled} key={index} value={answer.dataIndex}>
                                         {answer.title}
                                     </Radio>
