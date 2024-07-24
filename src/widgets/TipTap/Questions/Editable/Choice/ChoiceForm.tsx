@@ -7,6 +7,8 @@ interface ChoiceFormProps {
     updateAttributes: (question: Question) => void
     setWelcomeText: (welcomeText: string) => void
     setRandomSequence: (randomSequence: boolean) => void
+    cost: number
+    setCost: (cost: number) => void
     setIsEditing: (isEditing: boolean) => void
 }
 
@@ -15,6 +17,8 @@ export function ChoiceForm({
                                updateAttributes,
                                setWelcomeText,
                                setRandomSequence,
+                               cost,
+                               setCost,
                                setIsEditing
                            }: ChoiceFormProps) {
 
@@ -35,10 +39,10 @@ export function ChoiceForm({
         >
             <Form.Item
                 name="type"
-                label="Выберите тип:"
-                layout="vertical"
-                labelCol={{span: 12}}
-                wrapperCol={{span: 24}}
+                label="Тип:"
+                // layout="vertical"
+                labelCol={{span: 3}}
+                wrapperCol={{span: 21}}
             >
                 <Radio.Group
                     size={"small"} buttonStyle={'solid'}
@@ -56,14 +60,21 @@ export function ChoiceForm({
             </Form.Item>
 
             <Form.Item
-                name="points"
+                name="cost"
                 label="Баллов за решение"
                 labelCol={{span: 12}}
                 wrapperCol={{span: 8}}
-                rules={[{required: true, message: 'Укажите количество баллов!'}]}
             >
-                <InputNumber defaultValue={question.cost} onChange={e => question.cost = Number(e)}
-                             min={0} max={15} addonAfter={'Б'}/>
+                <InputNumber defaultValue={question.cost} value={cost}
+                             min={0} max={15} addonAfter={'Б'}
+                             onStep={(value) => {
+                                 setCost(Number(value));
+                                 question.cost = Number(value);
+                             }}
+                             onChange={(value) => {
+                                 setCost(Number(value));
+                                 question.cost = Number(value);
+                             }}/>
             </Form.Item>
 
             {question.type !== 'mono' &&
@@ -91,7 +102,6 @@ export function ChoiceForm({
             <Form.Item
                 name="knowledge"
                 label="Знания"
-                rules={[{required: true, message: 'Укажите виды знаний!'}]}
             >
                 <Cascader defaultValue={question.knowledge} options={[]}/>
             </Form.Item>

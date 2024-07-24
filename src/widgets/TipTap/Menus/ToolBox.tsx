@@ -8,7 +8,8 @@ import {
     CodeOutlined,
     DownOutlined,
     ItalicOutlined,
-    StrikethroughOutlined
+    StrikethroughOutlined,
+    UnorderedListOutlined
 } from "@ant-design/icons";
 import {EditorContentProps} from "@tiptap/react";
 import Link from "./Marks/Link";
@@ -87,24 +88,23 @@ export function ToolBox({editor}: { editor: EditorContentProps['editor'] }) {
                 <Image editor={editor}/>
             </Space.Compact>
             <Space.Compact>
-                <Input
-                    style={{
-                        width: 'auto',
-                        borderLeft: 0,
-                        borderRight: 0,
-                        pointerEvents: 'none',
-                    }}
-                    placeholder="Вставить вопрос:"
-                    disabled
-                />
-                <Dropdown
+                <Dropdown.Button
+                    icon={<DownOutlined/>}
+                    iconPosition={'end'}
                     menu={{
                         items: [
-                            {label: 'с одним правильным ответом', icon: <CheckCircleOutlined/>, key: 'mono'},
                             {
-                                label: 'с несколькими правильными ответами',
-                                icon: <CheckSquareOutlined/>,
-                                key: 'multi'
+                                label: 'С вариантами ответов', icon: <UnorderedListOutlined />, children: [
+                                    {
+                                        label: 'с одним правильным',
+                                        icon: <CheckCircleOutlined/>,
+                                        key: 'mono'},
+                                    {
+                                        label: 'с несколькими правильными',
+                                        icon: <CheckSquareOutlined/>,
+                                        key: 'multi'
+                                    }
+                                ]
                             },
                         ],
                         onClick: ({key}) => {
@@ -112,8 +112,8 @@ export function ToolBox({editor}: { editor: EditorContentProps['editor'] }) {
                         }
                     }}
                 >
-                    <Button icon={<DownOutlined/>} iconPosition={'end'}>с вариантами ответа</Button>
-                </Dropdown>
+                    Вопрос
+                </Dropdown.Button>
             </Space.Compact>
         </Space>
     )

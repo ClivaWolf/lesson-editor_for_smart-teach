@@ -7,6 +7,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import {ChoiceForm} from "./ChoiceForm.tsx";
 import {Welcome} from "./Welcome.tsx";
 import {FaRandom} from "react-icons/fa";
+import {PreviewKnowledge} from '../../../../KnowledgeSelector/Preview/PreviewKnowledge'
 import styles from "../../Preview/Choice/PreviewChoise.module.css";
 
 interface ChoiceQuestionProps {
@@ -24,6 +25,7 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
     const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>(shuffleArray([...question.answers]));
     const [correctAnswers, setCorrectAnswers] = useState(question.correctAnswers);
     const [randomSequence, setRandomSequence] = useState(question.random);
+    const [cost, setCost] = useState(question.cost);
     const [welcomeText, setWelcomeText] = useState(question.welcome_text ||
         (question.type === "mono" ? "Выберите один вариант" : "Выберите несколько вариантов")
     );
@@ -31,8 +33,6 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
     const shuffleAnswers = () => {
         setShuffledAnswers(shuffleArray([...question.answers]));
     };
-
-    console.log(randomSequence);
 
     const List = () => {
         return (
@@ -55,21 +55,21 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
             <Col span={11}>
                 <Flex gap={12} vertical>
                     <Row gutter={[8, 8]} align={'middle'}>
-                        <Col>
-                            <Badge count={question.cost} color={'green'}/>
+                        <Col span={3}>
+                            <Badge count={cost} color={'green'}/>
                         </Col>
-                        <Col>
+                        <Col span={21}>
                             <Welcome question={question} welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>
                         </Col>
                     </Row>
                     <Row gutter={[8, 8]} align={'middle'}>
-                        <Col>
+                        <Col span={2}>
                             <Tooltip title={'Случайный порядок вариантов'}>
                                 {randomSequence &&
                                     <FaRandom className={styles.randomIcon} onClick={() => shuffleAnswers()}/>}
                             </Tooltip>
                         </Col>
-                        <Col>
+                        <Col span={22}>
                             {question.type === "mono" ? (
                                 <Radio.Group value={correctAnswers[0]}
                                              onChange={(e) => setCorrectAnswers(e.target.value)}>
@@ -83,6 +83,11 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
                             )}
                         </Col>
                     </Row>
+                    <Row>
+                        <Col span={24}>
+                            <PreviewKnowledge knowledge={question.knowledge}/>
+                        </Col>
+                    </Row>
                 </Flex>
             </Col>
             <Col span={1}>
@@ -94,6 +99,8 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
                     updateAttributes={updateAttributes}
                     setWelcomeText={setWelcomeText}
                     setRandomSequence={setRandomSequence}
+                    cost={cost}
+                    setCost={setCost}
                     setIsEditing={setIsEditing}
                 />
             </Col>

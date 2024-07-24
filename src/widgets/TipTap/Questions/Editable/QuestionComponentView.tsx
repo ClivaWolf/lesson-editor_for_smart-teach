@@ -78,7 +78,10 @@ const ReactComponent = ({node, updateAttributes}: ReactComponentViewProps) => {
 
     return (
         <NodeViewWrapper className="react-component">
-            <div className={styles.question}>
+            <div className={styles.question} onDoubleClick={() => {
+                setIsEditing(true);
+                node.attrs.edit = isEditing;
+            }}>
                 {isEditing ? (
                     (question.type === 'mono' || question.type === 'multi') && (
                         <ChoiceQuestionMemo question={question} updateAttributes={updateAttributes}

@@ -89,20 +89,18 @@ export function Bank() {
             <ProList<Task>
                 style={{padding: 16, height: '100%', overflow: 'auto'}}
                 headerTitle={<Title level={3} onClick={() => console.log(selectedRowKeys)}>Банк тестов</Title>}
-                toolBarRender={() => {
-                    <Flex>
-                        <Button icon={<PlusOutlined/>}>Добавить задачу</Button>
-                        <Segmented<string>
-                            size={'large'}
-                            defaultValue={'local'}
-                            options={[{label: 'Локальные', value: 'local'},
-                                {label: 'Публичные', value: 'public', disabled: true}]}
-                            onChange={(value) => {
-                                console.log(value);
-                            }}
-                        />
-                    </Flex>
-                }}
+                toolBarRender={() => [
+                    <Button type={'primary'} icon={<PlusOutlined/>} onClick={() => showDrawer()}>Добавить задачу</Button>,
+                    <Segmented<string>
+                        size={'large'}
+                        defaultValue={'local'}
+                        options={[{label: 'Локальные', value: 'local'},
+                            {label: 'Публичные', value: 'public', disabled: true}]}
+                        onChange={(value) => {
+                            console.log(value);
+                        }}
+                    />
+                ]}
                 ghost={false}
                 grid={{gutter: 16, column: 2, xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 3}}
                 pagination={pagination}

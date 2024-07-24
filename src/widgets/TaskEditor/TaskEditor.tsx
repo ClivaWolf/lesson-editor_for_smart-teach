@@ -12,7 +12,6 @@ export function TaskEditor() {
                 title={`Редактор задания`}
                 placement="left"
                 size={'large'}
-                style={{width: '115%'}}
                 onClose={closeDrawer}
                 open={visible}
                 closable={false}

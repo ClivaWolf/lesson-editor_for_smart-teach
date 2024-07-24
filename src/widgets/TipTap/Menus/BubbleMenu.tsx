@@ -49,7 +49,6 @@ export default function BubbleMenuEditor({editor}: { editor: EditorContentProps[
                     }
                 );
                 view.dispatch(tr);
-                console.log("Successfully edited", node);
                 return false;
             }
         });

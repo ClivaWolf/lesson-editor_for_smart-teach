@@ -3,6 +3,7 @@
 import {generateHTML} from '@tiptap/core';
 import {EditorContentProps, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from '@tiptap/extension-placeholder';
 import {Mathematics} from "@tiptap-pro/extension-mathematics";
 import Link from '@tiptap/extension-link';
 import QuestionComponentView from "./Questions/Editable/QuestionComponentView.tsx";
@@ -38,6 +39,11 @@ export default function Editors(editor_name: ('preview' | 'editor')): EditorCont
             StarterKit,
             Mathematics,
             QuestionComponentView,
+            Placeholder.configure(
+                {
+                    placeholder: 'Напишите условие задачи и вставьте вопрос...',
+                }
+            ),
             Link.configure({
                 openOnClick: true,
                 autolink: true,
