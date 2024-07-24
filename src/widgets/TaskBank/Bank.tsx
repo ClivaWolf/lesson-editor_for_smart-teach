@@ -1,4 +1,4 @@
-import {ListProps, Popconfirm, Typography, Flex, Button} from "antd";
+import {ListProps, Popconfirm, Typography, Button} from "antd";
 import {ActionGroup, Checkbox, Segmented} from "@ant-design/pro-editor";
 import {Key, ProList, ProListMetas} from '@ant-design/pro-components'
 import {useBank} from "../../shared/contexts/BankContext.tsx";

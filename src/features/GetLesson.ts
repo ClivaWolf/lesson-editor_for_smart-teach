@@ -1,24 +1,13 @@
 import {Lesson} from "../shared/types/LessonType";
 
+// TODO: Эта функция асинхронно читает файлы из /Course_1/Lessons/lesson_[id].json
 export function GetLesson({lessonId}: { lessonId: string }): Promise<Lesson> {
     return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (lessonId === '1') {
-                    resolve({
-                        id: 1,
-                        title: 'Урок 1',
-                        description: 'Описание 1',
-                        courseId: 1,
-                        tasks: ['2']
-                    });
+                    resolve();
                 } else if (lessonId === '2') {
-                    resolve({
-                        id: 2,
-                        title: 'Заголовок 2',
-                        description: 'Описание 2',
-                        courseId: 1,
-                        tasks: []
-                    });
+                    resolve();
                 } else {
                     reject(new Error('Неверный courseId'));
                 }
