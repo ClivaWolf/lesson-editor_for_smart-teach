@@ -11,9 +11,9 @@ import {PreviewKnowledge} from "../../KnowledgeSelector/Preview/PreviewKnowledge
 
 const Tiptap = () => {
 
-    const {content} = useDrawer()
-    const [totalScores, setTotalScores] = useState(0)
-    const [totalKnowledge, setTotalKnowledge] = useState([])
+    const {content, scores, knowledge} = useDrawer()
+    const [totalScores, setTotalScores] = useState(scores)
+    const [totalKnowledge, setTotalKnowledge] = useState(knowledge)
 
     const editor = Editors('editor')
 
@@ -36,7 +36,7 @@ const Tiptap = () => {
     useLayoutEffect(() => {
         if (!editor?.isDestroyed && editor) {
             setTimeout(() => {
-                editor.commands.setContent(JSON.parse(content));
+                editor.commands.setContent(content);
             }, 0);
         }
     }, [content, editor]);

@@ -52,7 +52,7 @@ export function Bank() {
                     },
                     {
                         icon: <EditOutlined/>,
-                        onClick: () => showDrawer(task.content),
+                        onClick: () => showDrawer(task),
                         title: 'Редактировать',
                     },
                     {
