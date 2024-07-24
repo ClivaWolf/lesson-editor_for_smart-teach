@@ -1,5 +1,4 @@
-import {Col, Layout, Row} from "antd";
-import {LessonProvider} from "../../../shared/contexts/LessonContext.tsx";
+import {Layout} from "antd";
 import {Bank} from "../../../widgets/TaskBank/Bank.tsx";
 import {LessonManager} from "../../../widgets/LessonManager/LessonManager.tsx";
 
@@ -11,7 +10,7 @@ export function LessonPage() {
             <Content>
                 <Bank/>
             </Content>
-            <Sider width={300}>
+            <Sider width={450}>
                 <LessonManager/>
             </Sider>
         </Layout>

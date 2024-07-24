@@ -1,31 +1,46 @@
 import {Answer, Question} from "../../../../../shared/types/LessonType.ts";
 import {ItemRender, randomIndex} from "./_ItemRender.tsx";
-import {Button, Flex, Radio, Typography, Space, Input, Divider} from "antd";
+import {Button, Flex, Radio, Space, Input, Divider, Row, Col, Badge, Tooltip} from "antd";
 import {Checkbox, SortableList, SortableListProvider, useSortableList} from "@ant-design/pro-editor";
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import {ChoiceForm} from "./ChoiceForm.tsx";
 import {Welcome} from "./Welcome.tsx";
+import {FaRandom} from "react-icons/fa";
+import styles from "../../Preview/Choice/PreviewChoise.module.css";
 
 interface ChoiceQuestionProps {
     question: Question
     updateAttributes: (attrs: Partial<Question>) => void
+    setIsEditing: (isEditing: boolean) => void
 }
 
-export function ChoiceQuestion({question, updateAttributes}: ChoiceQuestionProps) {
-    const [list, setList] = useState<Question['answers']>(question.answers);
+export function ChoiceQuestion({question, updateAttributes, setIsEditing}: ChoiceQuestionProps) {
+
+    const shuffleArray = (array: Answer[]) => {
+        return array.sort(() => Math.random() - 0.5);
+    };
+
+    const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>(shuffleArray([...question.answers]));
     const [correctAnswers, setCorrectAnswers] = useState(question.correctAnswers);
+    const [randomSequence, setRandomSequence] = useState(question.random);
     const [welcomeText, setWelcomeText] = useState(question.welcome_text ||
         (question.type === "mono" ? "Выберите один вариант" : "Выберите несколько вариантов")
     );
+
+    const shuffleAnswers = () => {
+        setShuffledAnswers(shuffleArray([...question.answers]));
+    };
+
+    console.log(randomSequence);
 
     const List = () => {
         return (
             <SortableListProvider>
                 <SortableList<Question>
-                    list={list}
+                    list={shuffledAnswers}
                     initialValues={question.answers}
-                    onChange={(data) => setList(data as Question['answers'])}
+                    onChange={(data) => setShuffledAnswers(data as Question['answers'])}
                     renderContent={(item, index) =>
                         <ItemRender type={question.type as ("mono" | "multi")} item={item as Answer} index={index}/>
                     }
@@ -36,25 +51,53 @@ export function ChoiceQuestion({question, updateAttributes}: ChoiceQuestionProps
     }
 
     return (
-        <Flex justify={'space-between'} gap={16}>
-            <Flex gap={12} vertical>
-                {/*<Welcome question={question} welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>*/}
-                <Input.TextArea placeholder="Выбырите варианты ответа:" autoSize variant={'borderless'}
-                                value={question.welcome_text} onChange={(e) => setWelcomeText(e.target.value)}/>
-                {question.type === "mono" ? (
-                    <Radio.Group value={correctAnswers[0]} onChange={(e) => setCorrectAnswers(e.target.value)}>
-                        <List/>
-                    </Radio.Group>
-                ) : (
-                    <Checkbox.Group value={correctAnswers}
-                                    onChange={(e) => setCorrectAnswers(e.map(value => String(value)))}>
-                        <List/>
-                    </Checkbox.Group>
-                )}
-            </Flex>
-            <Divider type={'vertical'} style={{height: '100%'}}/>
-            <ChoiceForm question={question} updateAttributes={updateAttributes} setWelcomeText={setWelcomeText}/>
-        </Flex>
+        <Row style={{width: '100%', userSelect: 'none'}}>
+            <Col span={11}>
+                <Flex gap={12} vertical>
+                    <Row gutter={[8, 8]} align={'middle'}>
+                        <Col>
+                            <Badge count={question.cost} color={'green'}/>
+                        </Col>
+                        <Col>
+                            <Welcome question={question} welcomeText={welcomeText} setWelcomeText={setWelcomeText}/>
+                        </Col>
+                    </Row>
+                    <Row gutter={[8, 8]} align={'middle'}>
+                        <Col>
+                            <Tooltip title={'Случайный порядок вариантов'}>
+                                {randomSequence &&
+                                    <FaRandom className={styles.randomIcon} onClick={() => shuffleAnswers()}/>}
+                            </Tooltip>
+                        </Col>
+                        <Col>
+                            {question.type === "mono" ? (
+                                <Radio.Group value={correctAnswers[0]}
+                                             onChange={(e) => setCorrectAnswers(e.target.value)}>
+                                    <List/>
+                                </Radio.Group>
+                            ) : (
+                                <Checkbox.Group value={correctAnswers}
+                                                onChange={(e) => setCorrectAnswers(e.map(value => String(value)))}>
+                                    <List/>
+                                </Checkbox.Group>
+                            )}
+                        </Col>
+                    </Row>
+                </Flex>
+            </Col>
+            <Col span={1}>
+                <Divider type={'vertical'} style={{height: '100%'}}/>
+            </Col>
+            <Col span={12}>
+                <ChoiceForm
+                    question={question}
+                    updateAttributes={updateAttributes}
+                    setWelcomeText={setWelcomeText}
+                    setRandomSequence={setRandomSequence}
+                    setIsEditing={setIsEditing}
+                />
+            </Col>
+        </Row>
     )
 }
 

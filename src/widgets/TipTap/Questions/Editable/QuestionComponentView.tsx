@@ -2,16 +2,15 @@ import {NodeConfig, NodeViewWrapper, ReactNodeViewRenderer} from '@tiptap/react'
 import {Question} from '../../../../shared/types/LessonType.ts';
 import {ChoiceQuestion} from './Choice/Choice.tsx';
 import {Node} from '@tiptap/core';
-import {useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import styles from './Choice/Question.module.css';
-import {Button, Space} from "antd";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {PreviewChoice} from "../Preview/Choice/PreviewChoice.tsx";
 
 interface ReactComponentViewProps {
     node: {
         attrs: {
             content: Question;
+            edit: boolean;
         };
     };
     updateAttributes: (attrs: Partial<Question>) => void;
@@ -40,6 +39,7 @@ const ReactComponentNode = Node.create({
                     return {'data-content': JSON.stringify(attributes.content)};
                 },
             },
+            edit: true
         };
     },
 
@@ -65,42 +65,44 @@ const ReactComponentNode = Node.create({
 
 const ReactComponent = ({node, updateAttributes}: ReactComponentViewProps) => {
     const question = node.attrs.content;
-    const [isHover, setIsHover] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        setIsEditing(node.attrs.edit);
+        console.log('isEditing', node.attrs.edit);
+    }, [node.attrs.edit]);
 
     if (!question) {
         return null;
     }
 
-    const Toolbox = () => {
-        return (
-            <Space.Compact>
-                <Button type={'text'} icon={<EditOutlined/>} onClick={() => setIsEditing(true)}/>
-                <Button type={'text'} icon={<DeleteOutlined/>} onClick={() => setIsEditing(false)}/>
-            </Space.Compact>
-        )
-    }
-
     return (
         <NodeViewWrapper className="react-component">
-            <div
-                className={`${styles.question} ${isHover ? styles.active : ''}`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-            >
-                {isHover && !isEditing && <Toolbox/>}
+            <div className={styles.question}>
                 {isEditing ? (
                     (question.type === 'mono' || question.type === 'multi') && (
-                        <ChoiceQuestion question={question} updateAttributes={updateAttributes}/>
+                        <ChoiceQuestionMemo question={question} updateAttributes={updateAttributes}
+                                            setIsEditing={(isEditing) => {
+                                                setIsEditing(isEditing);
+                                                node.attrs.edit = isEditing;
+                                            }}/>
                     )
                 ) : (
                     (question.type === 'mono' || question.type === 'multi') && (
-                        <PreviewChoice question={question}/>
+                        <PreviewChoiceMemo question={question}/>
                     )
                 )}
             </div>
         </NodeViewWrapper>
     );
 };
+
+const ChoiceQuestionMemo = memo(({question, updateAttributes, setIsEditing}) => (
+    <ChoiceQuestion question={question} updateAttributes={updateAttributes} setIsEditing={setIsEditing}/>
+));
+
+const PreviewChoiceMemo = memo(({question}) => (
+    <PreviewChoice question={question}/>
+));
 
 export default ReactComponentNode;

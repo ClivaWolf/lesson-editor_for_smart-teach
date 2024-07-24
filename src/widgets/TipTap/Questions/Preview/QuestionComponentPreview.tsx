@@ -25,6 +25,7 @@ const ReactComponentNode = Node.create({
                     return {'data-content': JSON.stringify(attributes.content)};
                 },
             },
+            edit: true,
         };
     },
 

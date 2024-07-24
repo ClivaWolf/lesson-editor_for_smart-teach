@@ -19,7 +19,7 @@ export function PreviewChoice({question}: { question: Question }) {
     };
 
     return (
-        <Flex gap={8} vertical>
+        <Flex gap={8} vertical style={{userSelect: 'none'}}>
             <Row gutter={[8, 8]} align={'middle'}>
                 <Col>
                     <Badge count={question.cost} color={'green'}/>

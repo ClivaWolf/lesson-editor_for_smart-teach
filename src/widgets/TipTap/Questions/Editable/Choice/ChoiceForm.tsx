@@ -1,4 +1,4 @@
-import {Button, Form, Radio, Switch} from "antd";
+import {Button, Form, Radio, Switch, Flex} from "antd";
 import {Cascader, InputNumber} from "@ant-design/pro-editor";
 import {Question} from "../../../../../shared/types/LessonType.ts";
 
@@ -6,12 +6,22 @@ interface ChoiceFormProps {
     question: Question
     updateAttributes: (question: Question) => void
     setWelcomeText: (welcomeText: string) => void
+    setRandomSequence: (randomSequence: boolean) => void
+    setIsEditing: (isEditing: boolean) => void
 }
 
-export function ChoiceForm({question, updateAttributes, setWelcomeText}: ChoiceFormProps) {
+export function ChoiceForm({
+                               question,
+                               updateAttributes,
+                               setWelcomeText,
+                               setRandomSequence,
+                               setIsEditing
+                           }: ChoiceFormProps) {
 
     const onFinish = (question: Question) => {
+        console.log('edited question', question);
         updateAttributes(question);
+        setIsEditing(false);
     }
 
     return (
@@ -21,7 +31,7 @@ export function ChoiceForm({question, updateAttributes, setWelcomeText}: ChoiceF
             size={'small'}
             labelCol={{span: 6}}
             wrapperCol={{span: 18}}
-            style={{maxWidth: '50%', userSelect: 'none'}}
+            style={{userSelect: 'none'}}
         >
             <Form.Item
                 name="type"
@@ -73,6 +83,7 @@ export function ChoiceForm({question, updateAttributes, setWelcomeText}: ChoiceF
                 wrapperCol={{span: 8}}
             >
                 <Switch checked={question.random} onChange={(checked) => {
+                    setRandomSequence(checked);
                     question.random = checked
                 }}/>
             </Form.Item>
@@ -86,7 +97,10 @@ export function ChoiceForm({question, updateAttributes, setWelcomeText}: ChoiceF
             </Form.Item>
 
             <Form.Item wrapperCol={{offset: 8}} labelCol={{span: 8}}>
-                <Button type="primary" htmlType="submit">Сохранить</Button>
+                <Flex gap={8}>
+                    <Button type="default" onClick={() => setIsEditing(false)}>Отмена</Button>
+                    <Button type="primary" htmlType="submit">Сохранить</Button>
+                </Flex>
             </Form.Item>
 
         </Form>

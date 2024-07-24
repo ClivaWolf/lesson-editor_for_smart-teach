@@ -54,6 +54,9 @@ export function ToolBox({editor}: { editor: EditorContentProps['editor'] }) {
                         "1"
                     ],
                     "random": true
+                },
+                "meta": {
+                    "edit": true
                 }
             }
         }`)

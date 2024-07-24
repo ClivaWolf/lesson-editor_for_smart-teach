@@ -16,7 +16,8 @@ export function Welcome({question, welcomeText, setWelcomeText}: WelcomeProps) {
     return (
         <>
             {edited ? (
-                <Input
+                <Input.TextArea
+                    autosize
                     value={welcomeText}
                     onChange={(e) => {
                         setWelcomeText(e.target.value);
