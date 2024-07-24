@@ -1,6 +1,7 @@
-import {BubbleMenu, EditorContentProps} from "@tiptap/react";
+import {BubbleMenu} from "@tiptap/react";
 import {ActionGroup, ActionIconGroupItemType} from '@ant-design/pro-editor';
 import {BoldOutlined, ItalicOutlined} from "@ant-design/icons";
+import {EditorContentProps} from "@tiptap/react";
 
 export default function BubbleMenuEditor({editor}: { editor: EditorContentProps['editor'] }) {
 

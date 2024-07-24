@@ -4,6 +4,7 @@ import {generateHTML} from '@tiptap/core';
 import {EditorContentProps, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {Mathematics} from "@tiptap-pro/extension-mathematics";
+import Link from '@tiptap/extension-link';
 import QuestionComponentView from "./Questions/Editable/QuestionComponentView.tsx";
 import QuestionComponentPreview from "./Questions/Preview/QuestionComponentPreview.tsx";
 import styles from "./Editor.module.css";
@@ -17,6 +18,11 @@ export default function Editors(editor_name: ('preview' | 'editor')): EditorCont
             StarterKit,
             Mathematics,
             QuestionComponentPreview,
+            Link.configure({
+                openOnClick: true,
+                autolink: true,
+                defaultProtocol: 'https',
+            }),
         ],
         editorProps: {
             attributes: {
@@ -32,6 +38,11 @@ export default function Editors(editor_name: ('preview' | 'editor')): EditorCont
             StarterKit,
             Mathematics,
             QuestionComponentView,
+            Link.configure({
+                openOnClick: true,
+                autolink: true,
+                defaultProtocol: 'https',
+            }),
         ],
         editorProps: {
             attributes: {

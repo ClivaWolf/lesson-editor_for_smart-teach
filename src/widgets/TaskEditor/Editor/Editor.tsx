@@ -1,5 +1,5 @@
-import {useState, useEffect} from "react";
-import {Editor, EditorContent, JSONContent} from '@tiptap/react'
+import {useLayoutEffect} from "react";
+import {EditorContent, EditorProvider} from '@tiptap/react'
 import {ToolBox} from "../../TipTap/Menus/ToolBox.tsx";
 import 'katex/dist/katex.min.css'
 import BubbleMenu from "../../TipTap/Menus/BubbleMenu.tsx";
@@ -10,7 +10,6 @@ const Tiptap = () => {
 
     // const [totalScores, setTotalScores] = useState(0)
     const {content} = useDrawer()
-    // const [editorContent, setEditorContent] = useState<JSONContent>(content ? JSON.parse(content) : null)
 
     // const calculateTotalScores = () => {
     //     const nodes = editors.getJSON().content || [];
@@ -26,14 +25,16 @@ const Tiptap = () => {
 
     const editor = Editors('editor')
 
+    useLayoutEffect(() => {
+        if (!editor?.isDestroyed && editor) {
+            setTimeout(() => {
+                editor.commands.setContent(JSON.parse(content));
+            }, 0);
+        }
+    }, [content, editor]);
+
     if (!editor)
         return null
-
-    useEffect(() => {
-        if (editor && editor.commands && content) {
-            editor.commands.setContent(JSON.parse(content));
-        }
-    }, [editor, content]);
 
     return (
         <>
@@ -52,7 +53,8 @@ const Tiptap = () => {
             <button onClick={() => {
                 editor?.commands.setContent(JSON.parse(content))
                 console.log(content)
-            }}>Обновить</button>
+            }}>Обновить
+            </button>
             {/*<div>{editorContent.text}</div>*/}
         </>
     )
