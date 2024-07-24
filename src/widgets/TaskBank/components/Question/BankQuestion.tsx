@@ -10,7 +10,7 @@ export function BankQuestion({task}: { task: Task | null }) {
     useLayoutEffect(() => {
         if (!editor?.isDestroyed && editor && task) {
             setTimeout(() => {
-                editor.commands.setContent(JSON.parse(task.content));
+                editor.commands.setContent(task.content);
             }, 0);
         }
     }, [editor, task]);
