@@ -1,4 +1,4 @@
-import {ListProps, Typography} from "antd";
+import {ListProps, Popconfirm, Typography, Flex, Button} from "antd";
 import {ActionGroup, Checkbox, Segmented} from "@ant-design/pro-editor";
 import {Key, ProList, ProListMetas} from '@ant-design/pro-components'
 import {useBank} from "../../shared/contexts/BankContext.tsx";
@@ -8,7 +8,7 @@ import {TaskEditor} from "../TaskEditor/TaskEditor.tsx";
 import {useDrawer} from "../../shared/contexts/TE-DrawerContext.tsx";
 import {BankQuestion} from "./components/Question/BankQuestion.tsx";
 import {useCallback, useEffect, useState} from "react";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 
 const {Title} = Typography;
 
@@ -25,7 +25,6 @@ export function Bank() {
     };
 
     const handleDelete = useCallback((id: string) => {
-        //TODO: подтверждение удаления
         setBank(Bank.filter((item) => item.id !== id));
     }, [Bank, setBank]);
 
@@ -33,6 +32,38 @@ export function Bank() {
         defaultCurrent: 1,
         total: totalPagination,
         showSizeChanger: false,
+    };
+
+    const ActionButtons = ({task}: { task: Task }) => {
+        const [open, setOpen] = useState(false);
+        return (
+            <Popconfirm
+                title="Удалить задачу?"
+                description="Вы уверены, что хотите удалить задачу?"
+                onConfirm={() => handleDelete(task.id)}
+                okText="Да"
+                cancelText="Нет"
+                open={open}
+                onOpenChange={setOpen}
+            >
+                <ActionGroup items={[
+                    {
+                        type: 'divider',
+                    },
+                    {
+                        icon: <EditOutlined/>,
+                        onClick: () => showDrawer(task.content),
+                        title: 'Редактировать',
+                    },
+                    {
+                        icon: <DeleteOutlined/>,
+                        style: {color: '#f5222d'},
+                        onClick: () => setOpen(true),
+                        title: 'Удалить',
+                    }
+                ]}/>
+            </Popconfirm>
+        )
     };
 
     useEffect(() => {
@@ -46,22 +77,7 @@ export function Bank() {
                 content: <BankQuestion task={task}/>,
                 actions: [
                     <Checkbox checked={task.public}>Публичный</Checkbox>,
-                    <ActionGroup items={[
-                        {
-                            type: 'divider',
-                        },
-                        {
-                            icon: <EditOutlined/>,
-                            onClick: () => showDrawer(task.content),
-                            title: 'Редактировать',
-                        },
-                        {
-                            icon: <DeleteOutlined/>,
-                            color: '#f5222d',
-                            onClick: () => handleDelete(task.id),
-                            title: 'Удалить',
-                        }
-                    ]}/>,
+                    <ActionButtons task={task}/>,
                 ]
             })) as ListProps<Task>['dataSource']);
             setTotalPagination(Bank.length);
@@ -73,15 +89,20 @@ export function Bank() {
             <ProList<Task>
                 style={{padding: 16, height: '100%', overflow: 'auto'}}
                 headerTitle={<Title level={3} onClick={() => console.log(selectedRowKeys)}>Банк тестов</Title>}
-                toolBarRender={() => <Segmented<string>
-                    size={'large'}
-                    defaultValue={'local'}
-                    options={[{label: 'Локальные', value: 'local'},
-                        {label: 'Публичные', value: 'public', disabled: true}]}
-                    onChange={(value) => {
-                        console.log(value);
-                    }}
-                />}
+                toolBarRender={() => {
+                    <Flex>
+                        <Button icon={<PlusOutlined/>}>Добавить задачу</Button>
+                        <Segmented<string>
+                            size={'large'}
+                            defaultValue={'local'}
+                            options={[{label: 'Локальные', value: 'local'},
+                                {label: 'Публичные', value: 'public', disabled: true}]}
+                            onChange={(value) => {
+                                console.log(value);
+                            }}
+                        />
+                    </Flex>
+                }}
                 ghost={false}
                 grid={{gutter: 16, column: 2, xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 3}}
                 pagination={pagination}
