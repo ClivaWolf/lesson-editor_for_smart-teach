@@ -5,7 +5,7 @@
   "courseId": "1",
   "scores": 5,
   "knowledge": ["Определение логарифма"],
-  "tasks": [
+  "tasksId": [
     "Task_1"
   ]
 }

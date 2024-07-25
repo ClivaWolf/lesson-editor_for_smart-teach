@@ -9,7 +9,7 @@ interface LessonContextProps {
     loading: boolean;
 }
 
-const LessonId = '1'; // TODO: В будущем LessonId будет браться из slag
+const LessonId = '0'; // TODO: В будущем LessonId будет браться из slag
 
 const LessonContext = createContext<LessonContextProps | undefined>(undefined);
 
