@@ -6,6 +6,12 @@ export function TaskEditor() {
 
     const {visible, closeDrawer} = useDrawer();
 
+    const save = () => {
+        console.log('save')
+        // console.log(Tiptap.)
+        closeDrawer();
+    };
+
     return (
         <>
             <Drawer
@@ -18,7 +24,7 @@ export function TaskEditor() {
                 extra={
                     <Space>
                         <Button onClick={closeDrawer}>Отмена</Button>
-                        <Button type="primary" onClick={closeDrawer}>
+                        <Button type="primary" onClick={save}>
                             Сохранить
                         </Button>
                     </Space>

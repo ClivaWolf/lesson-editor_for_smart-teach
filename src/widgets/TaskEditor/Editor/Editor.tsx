@@ -1,5 +1,5 @@
 import {useLayoutEffect, useEffect, useState} from "react";
-import {Flex, Typography, Badge} from "antd";
+import {Flex, Typography, Badge, Button} from "antd";
 import {EditorContent} from '@tiptap/react'
 import {ToolBox} from "../../TipTap/Menus/ToolBox.tsx";
 import 'katex/dist/katex.min.css'
@@ -10,6 +10,10 @@ import {Question} from "../../../shared/types/LessonType.ts";
 import {PreviewKnowledge} from "../../KnowledgeSelector/Preview/PreviewKnowledge.tsx";
 
 const Tiptap = () => {
+
+    const getContent = () => {
+        return editor?.getJSON();
+    };
 
     const {content, scores, knowledge} = useDrawer()
     const [totalScores, setTotalScores] = useState(scores)
@@ -49,6 +53,18 @@ const Tiptap = () => {
         }
     }, [editor]);
 
+    const saveTask = () => {
+        console.log('save')
+        // console.log(Tiptap.)
+        fetch('http://localhost:3000/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({content})
+        })
+    };
+
     if (!editor)
         return null
 
@@ -64,6 +80,7 @@ const Tiptap = () => {
             <ToolBox editor={editor}/>
             <BubbleMenu editor={editor}/>
             <EditorContent editor={editor}/>
+            <Button onClick={saveTask}>Другое сохранить</Button>
         </>
     )
 }
