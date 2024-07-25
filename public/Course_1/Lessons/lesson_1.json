@@ -1,0 +1,11 @@
+{
+  "id": "1",
+  "title": "Урок 1",
+  "description": "Описание 1",
+  "courseId": "1",
+  "scores": 5,
+  "knowledge": ["Определение логарифма"],
+  "tasksId": [
+    "Task_1"
+  ]
+}

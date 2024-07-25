@@ -6,6 +6,7 @@ import {Task} from "../types/LessonType.ts";
 interface BankContextProps {
     Bank: Task[];
     setBank: (Bank: Task[]) => void;
+    getById: (id: string) => Task | null;
     loading: boolean;
 }
 
@@ -24,11 +25,19 @@ export const BankProvider: FC<{ children: ReactNode }> = ({children}) => {
         }).catch(() => setLoading(true));
     }, []);
 
+    const getById = (id: string) => {
+        if (!Bank) {
+            return null;
+        }
+        return Bank.find((item) => item.id === id);
+    };
+
     return (
         <BankContext.Provider value={{
             Bank,
             setBank,
-            loading
+            loading,
+            getById
         } as BankContextProps}>
             {children}
         </BankContext.Provider>

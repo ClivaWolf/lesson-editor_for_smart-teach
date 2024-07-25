@@ -9,24 +9,24 @@ interface LessonContextProps {
     loading: boolean;
 }
 
-const LessonId = '1'; // TODO: В будущем LessonId будет браться из slag
+const LessonId = '0'; // TODO: В будущем LessonId будет браться из slag
 
 const LessonContext = createContext<LessonContextProps | undefined>(undefined);
 
 export const LessonProvider: FC<{ children: ReactNode }> = ({children}) => {
-    const [Lesson, setLesson] = useState<Lesson | null>(null);
+    const [lesson, setLesson] = useState<Lesson | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        GetLesson({lessonId: LessonId}).then((Lesson) => {
-            setLesson(Lesson);
+        GetLesson({lessonId: LessonId}).then((_lesson) => {
+            setLesson(_lesson);
             setLoading(false);
         }).catch(() => setLoading(true));
     }, []);
 
     return (
         <LessonContext.Provider value={{
-            Lesson,
+            lesson,
             setLesson,
             loading
         } as LessonContextProps}>
