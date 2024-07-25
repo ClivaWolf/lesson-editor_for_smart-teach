@@ -20,20 +20,20 @@ export const useDrawer = () => {
 
 export const DrawerProvider = ({ children }) => {
     const [visible, setVisible] = useState(false);
-    const [content, setContent] = useState<string | undefined>('');
-    const [scores, setScores] = useState(0);
+    const [content, setContent] = useState<JSONContent | undefined>({});
+    const [scores, setScores] = useState<number>(0);
     const [knowledge, setKnowledge] = useState<string[]>([]);
 
     const showDrawer = (task: Task) => {
         setVisible(true);
-        setContent(task.content ?? '{}');
+        setContent(task.content);
         setScores(task.scores);
         setKnowledge(task.knowledge);
     };
 
     const closeDrawer = () => {
         setVisible(false);
-        setContent('');
+        setContent({} as JSONContent);
     };
 
     return (
