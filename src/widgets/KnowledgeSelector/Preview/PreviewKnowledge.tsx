@@ -1,6 +1,15 @@
-import {Select, Tag, Tooltip} from "antd";
+import {Select, Tag, Tooltip, Cascader} from "antd";
+import {useEffect, useState} from "react";
+import {GetKnowledge} from "../../../features/GetCourseKnowledge.ts";
 
 export function PreviewKnowledge({knowledge}: { knowledge: string[] }) {
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        GetKnowledge({courseId: '1'}).then((data) => {
+            setOptions(data);
+        }).catch(() => {});
+    }, []);
 
     const tag_colors = [
         "magenta", "red", "volcano", "orange", "gold",
@@ -13,8 +22,10 @@ export function PreviewKnowledge({knowledge}: { knowledge: string[] }) {
     }
 
     return (
-        <Select
-            mode="multiple"
+        <Cascader
+            // mode="multiple"
+            multiple
+            options={options}
             defaultValue={knowledge}
             value={knowledge}
             suffixIcon={<></>}

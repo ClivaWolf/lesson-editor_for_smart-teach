@@ -23,6 +23,7 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
     };
 
     const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>(shuffleArray([...question.answers]));
+    const [knowledge, setKnowledge] = useState(question.knowledge);
     const [correctAnswers, setCorrectAnswers] = useState(question.correctAnswers);
     const [randomSequence, setRandomSequence] = useState(question.random);
     const [cost, setCost] = useState(question.cost);
@@ -85,7 +86,7 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
                     </Row>
                     <Row>
                         <Col span={24}>
-                            <PreviewKnowledge knowledge={question.knowledge}/>
+                            <PreviewKnowledge knowledge={knowledge}/>
                         </Col>
                     </Row>
                 </Flex>
@@ -102,6 +103,8 @@ export function ChoiceQuestion({question, updateAttributes, setIsEditing}: Choic
                     cost={cost}
                     setCost={setCost}
                     setIsEditing={setIsEditing}
+                    knowledge={knowledge}
+                    setKnowledge={setKnowledge}
                 />
             </Col>
         </Row>

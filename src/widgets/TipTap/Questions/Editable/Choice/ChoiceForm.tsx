@@ -1,6 +1,7 @@
 import {Button, Form, Radio, Switch, Flex} from "antd";
 import {Cascader, InputNumber} from "@ant-design/pro-editor";
 import {Question} from "../../../../../shared/types/LessonType.ts";
+import {EditKnowledge} from "../../../../KnowledgeSelector/Edit/EditKnowledge.tsx";
 
 interface ChoiceFormProps {
     question: Question
@@ -10,6 +11,8 @@ interface ChoiceFormProps {
     cost: number
     setCost: (cost: number) => void
     setIsEditing: (isEditing: boolean) => void
+    knowledge: string[]
+    setKnowledge: (knowledge: string[]) => void
 }
 
 export function ChoiceForm({
@@ -19,7 +22,9 @@ export function ChoiceForm({
                                setRandomSequence,
                                cost,
                                setCost,
-                               setIsEditing
+                               setIsEditing,
+                               knowledge,
+                               setKnowledge
                            }: ChoiceFormProps) {
 
     const onFinish = (question: Question) => {
@@ -103,7 +108,7 @@ export function ChoiceForm({
                 name="knowledge"
                 label="Знания"
             >
-                <Cascader defaultValue={question.knowledge} options={[]}/>
+                <EditKnowledge defaultValue={knowledge} knowledge={knowledge} setKnowledge={setKnowledge}/>
             </Form.Item>
 
             <Form.Item wrapperCol={{offset: 8}} labelCol={{span: 8}}>
