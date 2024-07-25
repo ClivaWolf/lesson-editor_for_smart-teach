@@ -1,4 +1,4 @@
-import {Select, Tag} from "antd";
+import {Select, Tag, Tooltip} from "antd";
 
 export function PreviewKnowledge({knowledge}: { knowledge: string[] }) {
 
@@ -16,21 +16,24 @@ export function PreviewKnowledge({knowledge}: { knowledge: string[] }) {
         <Select
             mode="multiple"
             defaultValue={knowledge}
+            value={knowledge}
             suffixIcon={<></>}
             variant={'borderless'}
-            maxTagTextLength={15}
             placeholder={'Для этого вопроса не требуются знания'}
             open={false}
             allowClear={false}
             style={{width: '100%'}}
             tagRender={({label}) => (
-                <Tag
-                    style={{marginRight: 3}}
-                    color={getRandomColor()}
-                    closable={false}
-                >
-                    {label}
-                </Tag>
+                <Tooltip title={label}>
+                    <Tag
+                        //TODO: Вынести стили в отдельный файл
+                        style={{marginRight: 3, width: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}
+                        color={getRandomColor()}
+                        closable={false}
+                    >
+                        {label}
+                    </Tag>
+                </Tooltip>
             )}
         />
     )

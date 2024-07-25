@@ -68,7 +68,7 @@ export function PassTest({lesson, showDrawer, setShowDrawer}: {
                 {/*<Pagination total={lesson?.tasksId.length} defaultPageSize={1}*/}
                 {/*            current={currentTask} onChange={setCurrentTask}/>*/}
                 <Flex gap={12} vertical style={{height: '100%', overflow: 'auto'}}>
-                    {lesson.tasksId.map(taskId => <TestQuestion task={getById(taskId)}/>)}
+                    {lesson?.tasksId.map(taskId => <TestQuestion task={getById(taskId)}/>)}
                 </Flex>
             </>}
         </Drawer>
