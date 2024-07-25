@@ -1,4 +1,4 @@
-import {Button, Drawer, Pagination, Result} from "antd";
+import {Button, Drawer, Flex, Result} from "antd";
 import {Lesson, Question} from "../../shared/types/LessonType.ts";
 import {TestQuestion} from "./TestQuestion.tsx";
 import {useState, useEffect} from "react";
@@ -11,7 +11,6 @@ export function PassTest({lesson, showDrawer, setShowDrawer}: {
     setShowDrawer: (value: boolean) => void
 }) {
     const {getById} = useBank();
-    const [currentTask, setCurrentTask] = useState(1);
     const [testCompleted, setTestCompleted] = useState(false);
 
     function parseReactComponents(jsonObj: JSONContent): Question[] {
@@ -59,16 +58,18 @@ export function PassTest({lesson, showDrawer, setShowDrawer}: {
             placement="left"
             closable={true}
             open={showDrawer}
-            onClose={setShowDrawer}
+            onClose={() => setShowDrawer(false)}
             extra={
                 <Button type={'primary'}
                         onClick={() => setTestCompleted(!testCompleted)}>{testCompleted ? 'Пройти заново' : 'Сдать тест'}</Button>
             }
         >
             {testCompleted ? <Results/> : <>
-                <Pagination total={lesson?.tasksId.length} defaultPageSize={1}
-                            current={currentTask} onChange={setCurrentTask}/>
-                <TestQuestion task={getById(lesson?.tasksId[currentTask - 1] ?? '')}/>
+                {/*<Pagination total={lesson?.tasksId.length} defaultPageSize={1}*/}
+                {/*            current={currentTask} onChange={setCurrentTask}/>*/}
+                <Flex gap={12} vertical style={{height: '100%', overflow: 'auto'}}>
+                    {lesson.tasksId.map(taskId => <TestQuestion task={getById(taskId)}/>)}
+                </Flex>
             </>}
         </Drawer>
     )
