@@ -45,6 +45,7 @@
               "correctAnswers": [
                 "3"
               ],
+              "userAnswers": [],
               "random": true
             }
           }
@@ -104,6 +105,7 @@
               "correctAnswers": [
                 "1"
               ],
+              "userAnswers": [],
               "random": true
             }
           }

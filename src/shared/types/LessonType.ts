@@ -1,3 +1,5 @@
+import {JSONContent} from "@tiptap/react";
+
 export type Lesson = {
     id: number,
     title: string,
@@ -9,7 +11,7 @@ export type Lesson = {
 
 export type Task = {
     id: string,
-    content: string,
+    content: JSONContent,
     scores: number,
     knowledge: string[],
     public: boolean
@@ -21,6 +23,7 @@ export type Question = {
     id: string,
     type: QuestionType,
     answers: Answer[],
+    userAnswers: string[] | null,
     correctAnswers: string[],
     knowledge: string[],
     cost: number,

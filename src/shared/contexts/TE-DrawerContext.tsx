@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from 'react';
 import {Task} from "../types/LessonType.ts";
+import {JSONContent} from "@tiptap/react";
 
 interface TEDrawerContextProps {
     visible: boolean;
@@ -25,7 +26,7 @@ export const DrawerProvider = ({ children }) => {
 
     const showDrawer = (task: Task) => {
         setVisible(true);
-        setContent(JSON.parse(task.content ?? '{}'));
+        setContent(task.content ?? '{}');
         setScores(task.scores);
         setKnowledge(task.knowledge);
     };

@@ -47,7 +47,7 @@ export function LessonManager() {
             {loading ? (
                 <Skeleton active/>
             ) : (
-                <Flex vertical style={{margin: 8}}>
+                <Flex vertical style={{margin: 16}}>
                     <Typography.Title level={3} style={{color: 'white'}}>{currentLesson?.title}</Typography.Title>
                     <Typography.Text level={4} strong
                                      style={{color: 'white'}}>{currentLesson?.description}</Typography.Text>
