@@ -64,19 +64,6 @@ const Tiptap = () => {
             <ToolBox editor={editor}/>
             <BubbleMenu editor={editor}/>
             <EditorContent editor={editor}/>
-            {/*<button onClick={() => {*/}
-            {/*    if (editor instanceof Editor) {*/}
-            {/*        setEditorContent(editor.getJSON())*/}
-            {/*        console.log(editor.getHTML())*/}
-            {/*    }*/}
-            {/*}}>*/}
-            {/*    Submit*/}
-            {/*</button>*/}
-            <button onClick={() => {
-                console.log(editor?.getJSON())
-            }}>Обновить
-            </button>
-            {/*<div>{editorContent.text}</div>*/}
         </>
     )
 }

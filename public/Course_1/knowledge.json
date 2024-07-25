@@ -1,0 +1,267 @@
+[
+  {
+    "value": "mathematics",
+    "label": "Математика",
+    "children": [
+      {
+        "value": "logarithms",
+        "label": "Логарифмы",
+        "children": [
+          { "value": "definition_of_logarithm", "label": "Определение логарифма" },
+          { "value": "decimal_logarithm", "label": "Десятичный логарифм" },
+          { "value": "natural_logarithm", "label": "Натуральный логарифм" },
+          { "value": "basic_logarithmic_identity", "label": "Основное логарифмическое тождество" },
+          { "value": "properties_of_logarithms", "label": "Свойства логарифмов" },
+          { "value": "definition_of_logarithmic_function", "label": "Определение логарифмической функции" },
+          { "value": "properties_of_logarithmic_function", "label": "Свойства логарифмической функции" },
+          { "value": "graph_of_logarithmic_function", "label": "График логарифмической функции" },
+          { "value": "definition_of_logarithmic_equation", "label": "Определение логарифмического уравнения" },
+          { "value": "solving_logarithmic_equation_by_definition", "label": "Решение логарифмического уравнения по определению логарифма" },
+          { "value": "method_of_potentiation", "label": "Метод потенцирования" },
+          { "value": "method_of_introducing_a_new_variable", "label": "Метод введения новой переменной" },
+          { "value": "functional_graphical_method", "label": "Функционально-графический метод" },
+          { "value": "definition_of_logarithmic_inequality", "label": "Определение логарифмического неравенства" }
+        ]
+      },
+      {
+        "value": "trigonometry",
+        "label": "Тригонометрия",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "physics",
+    "label": "Физика",
+    "children": [
+      {
+        "value": "mechanics",
+        "label": "Механика",
+        "disabled": true
+      },
+      {
+        "value": "thermodynamics",
+        "label": "Термодинамика",
+        "disabled": true
+      },
+      {
+        "value": "electromagnetism",
+        "label": "Электромагнетизм",
+        "disabled": true
+      },
+      {
+        "value": "optics",
+        "label": "Оптика",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "chemistry",
+    "label": "Химия",
+    "children": [
+      {
+        "value": "organic_chemistry",
+        "label": "Органическая химия",
+        "disabled": true
+      },
+      {
+        "value": "inorganic_chemistry",
+        "label": "Неорганическая химия",
+        "disabled": true
+      },
+      {
+        "value": "biochemistry",
+        "label": "Биохимия",
+        "disabled": true
+      },
+      {
+        "value": "analytical_chemistry",
+        "label": "Аналитическая химия",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "biology",
+    "label": "Биология",
+    "children": [
+      {
+        "value": "cell_biology",
+        "label": "Целевая биология",
+        "disabled": true
+      },
+      {
+        "value": "genetics",
+        "label": "Генетика",
+        "disabled": true
+      },
+      {
+        "value": "evolution",
+        "label": "Эволюция",
+        "disabled": true
+      },
+      {
+        "value": "ecology",
+        "label": "Экология",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "astronomy",
+    "label": "Астрономия",
+    "children": [
+      {
+        "value": "planetary_science",
+        "label": "Планетная наука",
+        "disabled": true
+      },
+      {
+        "value": "cosmology",
+        "label": "Космология",
+        "disabled": true
+      },
+      {
+        "value": "astrophysics",
+        "label": "Астрофизика",
+        "disabled": true
+      },
+      {
+        "value": "telescopes_and_instruments",
+        "label": "Телескопы и приборы",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "geography",
+    "label": "География",
+    "children": [
+      {
+        "value": "physical_geography",
+        "label": "Физическая география",
+        "disabled": true
+      },
+      {
+        "value": "human_geography",
+        "label": "Человеческая география",
+        "disabled": true
+      },
+      {
+        "value": "regional_geography",
+        "label": "Региональная география",
+        "disabled": true
+      },
+      {
+        "value": "environmental_geography",
+        "label": "Окружающая среда",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "history",
+    "label": "История",
+    "children": [
+      {
+        "value": "ancient_history",
+        "label": "Древняя история",
+        "disabled": true
+      },
+      {
+        "value": "medieval_history",
+        "label": "Средневековая история",
+        "disabled": true
+      },
+      {
+        "value": "modern_history",
+        "label": "Новое время",
+        "disabled": true
+      },
+      {
+        "value": "contemporary_history",
+        "label": "Современная история",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "literature",
+    "label": "Литература",
+    "children": [
+      {
+        "value": "poetry",
+        "label": "Поэзия",
+        "disabled": true
+      },
+      {
+        "value": "prose",
+        "label": "Проза",
+        "disabled": true
+      },
+      {
+        "value": "drama",
+        "label": "Драма",
+        "disabled": true
+      },
+      {
+        "value": "criticism",
+        "label": "Критика",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "philosophy",
+    "label": "Философия",
+    "children": [
+      {
+        "value": "ethics",
+        "label": "Этика",
+        "disabled": true
+      },
+      {
+        "value": "epistemology",
+        "label": "Эпистемология",
+        "disabled": true
+      },
+      {
+        "value": "metaphysics",
+        "label": "Метафизика",
+        "disabled": true
+      },
+      {
+        "value": "logic",
+        "label": "Логика",
+        "disabled": true
+      }
+    ]
+  },
+  {
+    "value": "psychology",
+    "label": "Психология",
+    "children": [
+      {
+        "value": "cognitive_psychology",
+        "label": "Когнитивная психология",
+        "disabled": true
+      },
+      {
+        "value": "behavioral_psychology",
+        "label": "Поведенческую психологию",
+        "disabled": true
+      },
+      {
+        "value": "developmental_psychology",
+        "label": "Развитковую психологию",
+        "disabled": true
+      },
+      {
+        "value": "social_psychology",
+        "label": "Социальную психологию",
+        "disabled": true
+      }
+    ]
+  }
+]

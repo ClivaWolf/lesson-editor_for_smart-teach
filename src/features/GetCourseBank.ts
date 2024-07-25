@@ -12,6 +12,5 @@ export function GetBank({courseId}: { courseId: string }): Promise<Task[]> {
                 }
             }, 1500);
         }
-    )
-        ;
+    );
 }
